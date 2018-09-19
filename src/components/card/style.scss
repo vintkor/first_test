@@ -11,7 +11,7 @@ $main-color: #1a4661;
   border-radius: 2px;
   box-shadow: 1px 1px 3px rgba(#000, .1);
   &:hover {
-    cursor: grab;
+    cursor: pointer;
   }
   &.card-isDragging {
     background: #fff;

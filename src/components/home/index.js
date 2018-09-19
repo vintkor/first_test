@@ -3,6 +3,7 @@ import './style.scss';
 import Column from "../column";
 import Card from "../card";
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import Task from "../task";
 
 const reorder = (list, startIndex, endIndex) => {
     const result = Array.from(list);
@@ -23,6 +24,7 @@ class Home extends Component {
         this.onStoryDropEnd = this.onStoryDropEnd.bind(this);
         this.onModuleDropEnd = this.onModuleDropEnd.bind(this);
         this.onTaskDropEnd = this.onTaskDropEnd.bind(this);
+        this.handleClickLoadTask = this.handleClickLoadTask.bind(this);
         this.state = {
             projects: [
                 {
@@ -85,62 +87,87 @@ class Home extends Component {
             tasks: [
                 {
                     title: 'task 1',
-                    sort: 1
+                    sort: 1,
+                    desc: 'Super desc 1'
                 },
                 {
                     title: 'task 2',
-                    sort: 2
+                    sort: 2,
+                    desc: 'Super desc 2'
                 },
                 {
                     title: 'task 3',
-                    sort: 3
+                    sort: 3,
+                    desc: 'Super desc 3'
                 },
                 {
                     title: 'task 4',
-                    sort: 4
+                    sort: 4,
+                    desc: 'Super desc 4'
                 },
                 {
                     title: 'task 5',
-                    sort: 5
+                    sort: 5,
+                    desc: 'Обратите внимание как работает setState(). Вы передаете ему объект, содержащий часть информации, которую вы хотите обновить. Другими словами, значения в передаваемом объекте будут сначала сравниваться со значениями из состояния компонента и, после, setState() либо обновит, либо добавит новые значения в state.'
                 },
                 {
                     title: 'task 6',
-                    sort: 6
+                    sort: 6,
+                    desc: 'Super desc 6'
                 },
                 {
                     title: 'task 7',
-                    sort: 7
+                    sort: 7,
+                    desc: 'Super desc 7'
                 },
                 {
                     title: 'task 8',
-                    sort: 8
+                    sort: 8,
+                    desc: 'Super desc 8'
                 },
                 {
                     title: 'task 9',
-                    sort: 9
+                    sort: 9,
+                    desc: 'Super desc 9'
                 },
                 {
                     title: 'task 10',
-                    sort: 10
+                    sort: 10,
+                    desc: 'Super desc 10'
                 },
                 {
                     title: 'task 11',
-                    sort: 11
+                    sort: 11,
+                    desc: 'Super desc 11'
                 },
                 {
                     title: 'task 12',
-                    sort: 12
+                    sort: 12,
+                    desc: 'Super desc 12'
                 },
                 {
                     title: 'task 13',
-                    sort: 13
+                    sort: 13,
+                    desc: 'Super desc 13'
                 },
                 {
                     title: 'task 14',
-                    sort: 14
+                    sort: 14,
+                    desc: 'Super desc 14'
                 }
-            ]
+            ],
+            task: {
+                title: 'task 3',
+                sort: 3,
+                desc: 'Super desc 3'
+            }
         }
+    }
+
+    handleClickLoadTask(e, item) {
+        this.setState({
+            task: item
+        })
     }
 
     onProjectDropEnd(result) {
@@ -223,7 +250,11 @@ class Home extends Component {
                                                     {...provided.draggableProps}
                                                     {...provided.dragHandleProps}
                                                 >
-                                                    <Card title={item.title} key={index} className={snapshot.isDragging ? 'card-isDragging' : ''}/>
+                                                    <Card
+                                                        title={item.title}
+                                                        key={index}
+                                                        className={snapshot.isDragging ? 'card-isDragging' : ''}
+                                                    />
                                                 </div>
                                             )}
                                         </Draggable>
@@ -247,7 +278,11 @@ class Home extends Component {
                                                     {...provided.draggableProps}
                                                     {...provided.dragHandleProps}
                                                 >
-                                                    <Card title={item.title} key={index} className={snapshot.isDragging ? 'card-isDragging' : ''}/>
+                                                    <Card
+                                                        title={item.title}
+                                                        key={index}
+                                                        className={snapshot.isDragging ? 'card-isDragging' : ''}
+                                                    />
                                                 </div>
                                             )}
                                         </Draggable>
@@ -271,7 +306,11 @@ class Home extends Component {
                                                     {...provided.draggableProps}
                                                     {...provided.dragHandleProps}
                                                 >
-                                                    <Card title={item.title} key={index} className={snapshot.isDragging ? 'card-isDragging' : ''}/>
+                                                    <Card
+                                                        title={item.title}
+                                                        key={index}
+                                                        className={snapshot.isDragging ? 'card-isDragging' : ''}
+                                                    />
                                                 </div>
                                             )}
                                         </Draggable>
@@ -294,8 +333,13 @@ class Home extends Component {
                                                     ref={provided.innerRef}
                                                     {...provided.draggableProps}
                                                     {...provided.dragHandleProps}
+                                                    onClick={(e) => {this.handleClickLoadTask(e, item)}}
                                                 >
-                                                    <Card title={item.title} key={index} className={snapshot.isDragging ? 'card-isDragging' : ''}/>
+                                                    <Card
+                                                        title={item.title}
+                                                        key={index}
+                                                        className={snapshot.isDragging ? 'card-isDragging' : ''}
+                                                    />
                                                 </div>
                                             )}
                                         </Draggable>
@@ -307,7 +351,9 @@ class Home extends Component {
                     </DragDropContext>
                 </Column>
                 <Column title="Task">
-                    <Card title="Simple task"/>
+                    <Card title={this.state.task.title}>
+                        <Task desc={this.state.task.desc}/>
+                    </Card>
                 </Column>
             </div>
         )

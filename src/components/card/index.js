@@ -9,6 +9,9 @@ class Card extends Component {
         return (
             <div className={'card' + ' ' + this.props.className}>
                 <h3 className="card-title">card {this.props.title}</h3>
+                <div className="card-content">
+                    {this.props.children}
+                </div>
             </div>
         )
     }
