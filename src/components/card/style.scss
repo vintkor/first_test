@@ -1,13 +1,24 @@
 $main-color: #1a4661;
 
 .card {
-  padding: 3px 5px;
+  padding: 5px 7px;
   background: rgba(#fff, .8);
+  background: #fff;
   font-size: 14px;
-  margin-top: 3px;
-  margin-bottom: 5px;
+  margin-top: 5px;
+  margin-bottom: 7px;
+  transition: .1s ease-in-out;
+  border-radius: 2px;
+  box-shadow: 1px 1px 3px rgba(#000, .1);
   &:hover {
     cursor: grab;
+  }
+  &.card-isDragging {
+    background: #fff;
+    background: rgba(#fbfc56, .8);
+    transform: rotate(2deg);
+    transition: .08s ease-in-out;
+    box-shadow: 5px 5px 10px rgba(#000, .1);
   }
 }
 .card-title {

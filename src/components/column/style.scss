@@ -3,7 +3,6 @@ $main-color: #1a4661;
 .column {
   width: calc(100vw / 5);
   height: 100vh;
-  //background: rgba($main-color, .05);
   &:last-child {
     width: calc((100vw / 5) * 2);
   }
@@ -12,9 +11,9 @@ $main-color: #1a4661;
   background: rgba($main-color, .8);
   text-align: center;
   color: #fff;
-  font-size: 14px;
+  font-size: 16px;
   text-transform: capitalize;
-  padding: 5px;
+  padding: 10px;
 }
 .column-cards {
   padding: 3px;

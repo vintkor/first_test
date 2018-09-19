@@ -7,7 +7,7 @@ class Card extends Component {
     }
     render() {
         return (
-            <div className="card">
+            <div className={'card' + ' ' + this.props.className}>
                 <h3 className="card-title">card {this.props.title}</h3>
             </div>
         )
