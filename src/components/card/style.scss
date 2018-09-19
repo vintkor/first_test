@@ -1,0 +1,20 @@
+$main-color: #1a4661;
+
+.card {
+  padding: 3px 5px;
+  background: rgba(#fff, .8);
+  font-size: 14px;
+  margin-top: 3px;
+  margin-bottom: 5px;
+  &:hover {
+    cursor: grab;
+  }
+}
+.card-title {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  color: $main-color;
+  text-transform: capitalize;
+  font-weight: normal;
+}

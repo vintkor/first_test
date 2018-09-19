@@ -1,0 +1,23 @@
+$main-color: #1a4661;
+
+.column {
+  width: calc(100vw / 5);
+  height: 100vh;
+  //background: rgba($main-color, .05);
+  &:last-child {
+    width: calc((100vw / 5) * 2);
+  }
+}
+.column-title {
+  background: rgba($main-color, .8);
+  text-align: center;
+  color: #fff;
+  font-size: 14px;
+  text-transform: capitalize;
+  padding: 5px;
+}
+.column-cards {
+  padding: 3px;
+  overflow: scroll;
+  height: calc(100vh - 30px);
+}
