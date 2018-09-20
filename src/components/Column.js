@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './style.scss';
+import { connect } from 'react-redux';
 
 class Column extends Component {
     constructor(props) {
@@ -17,4 +17,4 @@ class Column extends Component {
     }
 }
 
-export default Column;
+export default connect()(Column);

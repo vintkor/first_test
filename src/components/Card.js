@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
-import './style.scss';
+import { connect } from 'react-redux';
 
 class Card extends Component {
     constructor(props) {
         super(props)
     }
     render() {
+        const classes = ['card', this.props.className, this.props.isDone && 'is-done'];
         return (
-            <div className={'card' + ' ' + this.props.className}>
+            <div className={classes.join(' ')}>
                 <h3 className="card-title">card {this.props.title}</h3>
                 <div className="card-content">
                     {this.props.children}
@@ -17,4 +18,4 @@ class Card extends Component {
     }
 }
 
-export default Card;
+export default connect()(Card);

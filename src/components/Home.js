@@ -1,9 +1,14 @@
 import React, {Component} from 'react';
-import './style.scss';
-import Column from "../column";
-import Card from "../card";
+import '../main.scss';
+import Column from "./Column";
+import Card from "./Card";
+import Task from "./Task";
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import Task from "../task";
+import { connect } from 'react-redux';
+import setTasksAction from "../actions/setTasksAction";
+import setModulesAction from "../actions/setModulesAction";
+import seStoriesAction from "../actions/setStoriesAction";
+import seProjectsAction from "../actions/setProjectsAction";
 
 const reorder = (list, startIndex, endIndex) => {
     const result = Array.from(list);
@@ -25,143 +30,7 @@ class Home extends Component {
         this.onModuleDropEnd = this.onModuleDropEnd.bind(this);
         this.onTaskDropEnd = this.onTaskDropEnd.bind(this);
         this.handleClickLoadTask = this.handleClickLoadTask.bind(this);
-        this.state = {
-            projects: [
-                {
-                    title: 'project 1',
-                    sort: 1
-                },
-                {
-                    title: 'project 2',
-                    sort: 2
-                },
-                {
-                    title: 'project 3',
-                    sort: 3
-                },
-                {
-                    title: 'project 4',
-                    sort: 4
-                },
-                {
-                    title: 'project 5',
-                    sort: 5
-                }
-            ],
-            stories: [
-                {
-                    title: 'story 1',
-                    sort: 1
-                },
-                {
-                    title: 'story 2',
-                    sort: 2
-                },
-                {
-                    title: 'story 3',
-                    sort: 3
-                }
-            ],
-            modules: [
-                {
-                    title: 'module 1',
-                    sort: 1
-                },
-                {
-                    title: 'module 2',
-                    sort: 2
-                },
-                {
-                    title: 'module 3',
-                    sort: 3
-                },
-                {
-                    title: 'module 4',
-                    sort: 4
-                },
-                {
-                    title: 'module 5',
-                    sort: 5
-                }
-            ],
-            tasks: [
-                {
-                    title: 'task 1',
-                    sort: 1,
-                    desc: 'Super desc 1'
-                },
-                {
-                    title: 'task 2',
-                    sort: 2,
-                    desc: 'Super desc 2'
-                },
-                {
-                    title: 'task 3',
-                    sort: 3,
-                    desc: 'Super desc 3'
-                },
-                {
-                    title: 'task 4',
-                    sort: 4,
-                    desc: 'Super desc 4'
-                },
-                {
-                    title: 'task 5',
-                    sort: 5,
-                    desc: 'Обратите внимание как работает setState(). Вы передаете ему объект, содержащий часть информации, которую вы хотите обновить. Другими словами, значения в передаваемом объекте будут сначала сравниваться со значениями из состояния компонента и, после, setState() либо обновит, либо добавит новые значения в state.'
-                },
-                {
-                    title: 'task 6',
-                    sort: 6,
-                    desc: 'Super desc 6'
-                },
-                {
-                    title: 'task 7',
-                    sort: 7,
-                    desc: 'Super desc 7'
-                },
-                {
-                    title: 'task 8',
-                    sort: 8,
-                    desc: 'Super desc 8'
-                },
-                {
-                    title: 'task 9',
-                    sort: 9,
-                    desc: 'Super desc 9'
-                },
-                {
-                    title: 'task 10',
-                    sort: 10,
-                    desc: 'Super desc 10'
-                },
-                {
-                    title: 'task 11',
-                    sort: 11,
-                    desc: 'Super desc 11'
-                },
-                {
-                    title: 'task 12',
-                    sort: 12,
-                    desc: 'Super desc 12'
-                },
-                {
-                    title: 'task 13',
-                    sort: 13,
-                    desc: 'Super desc 13'
-                },
-                {
-                    title: 'task 14',
-                    sort: 14,
-                    desc: 'Super desc 14'
-                }
-            ],
-            task: {
-                title: 'task 3',
-                sort: 3,
-                desc: 'Super desc 3'
-            }
-        }
+        this.state = {}
     }
 
     handleClickLoadTask(e, item) {
@@ -176,14 +45,12 @@ class Home extends Component {
         }
 
         const projects = reorder(
-            this.state.projects,
+            this.props.projects,
             result.source.index,
             result.destination.index
         );
 
-        this.setState({
-            projects,
-        });
+        this.props.setProjectsFunction(projects);
     }
 
     onStoryDropEnd(result) {
@@ -192,14 +59,12 @@ class Home extends Component {
         }
 
         const stories = reorder(
-            this.state.stories,
+            this.props.stories,
             result.source.index,
             result.destination.index
         );
 
-        this.setState({
-            stories,
-        });
+        this.props.setStoriesFunction(stories);
     }
 
     onModuleDropEnd(result) {
@@ -208,14 +73,12 @@ class Home extends Component {
         }
 
         const modules = reorder(
-            this.state.modules,
+            this.props.modules,
             result.source.index,
             result.destination.index
         );
 
-        this.setState({
-            modules,
-        });
+        this.props.setModulesFunction(modules);
     }
 
     onTaskDropEnd(result) {
@@ -224,17 +87,20 @@ class Home extends Component {
         }
 
         const tasks = reorder(
-            this.state.tasks,
+            this.props.tasks,
             result.source.index,
             result.destination.index
         );
 
-        this.setState({
-            tasks,
-        });
+        this.props.setTasksFunction(tasks);
     }
 
     render() {
+        const task = this.state.task && (
+            <Card title={this.state.task.title}>
+                <Task desc={this.state.task.desc}/>
+            </Card>
+        );
         return (
             <div className="home-wrapper">
                 <Column title="Projects">
@@ -242,7 +108,7 @@ class Home extends Component {
                         <Droppable droppableId="droppable">
                             {(provided, snapshot) => (
                                 <div ref={provided.innerRef}>
-                                    {this.state.projects.map((item, index) => (
+                                    {this.props.projects.map((item, index) => (
                                         <Draggable key={item.sort} draggableId={item.sort} index={index}>
                                             {(provided, snapshot) => (
                                                 <div
@@ -264,13 +130,14 @@ class Home extends Component {
                             )}
                         </Droppable>
                     </DragDropContext>
+                    <button className="btn btn-default btn-default__darken btn-block">Add new project</button>
                 </Column>
                 <Column title="Stories">
                     <DragDropContext onDragEnd={this.onStoryDropEnd}>
                         <Droppable droppableId="droppable">
                             {(provided, snapshot) => (
                                 <div ref={provided.innerRef}>
-                                    {this.state.stories.map((item, index) => (
+                                    {this.props.stories.map((item, index) => (
                                         <Draggable key={item.sort} draggableId={item.sort} index={index}>
                                             {(provided, snapshot) => (
                                                 <div
@@ -292,13 +159,14 @@ class Home extends Component {
                             )}
                         </Droppable>
                     </DragDropContext>
+                    <button className="btn btn-default btn-default__darken btn-block">Add new story</button>
                 </Column>
                 <Column title="Modules">
                     <DragDropContext onDragEnd={this.onModuleDropEnd}>
                         <Droppable droppableId="droppable">
                             {(provided, snapshot) => (
                                 <div ref={provided.innerRef}>
-                                    {this.state.modules.map((item, index) => (
+                                    {this.props.modules.map((item, index) => (
                                         <Draggable key={item.sort} draggableId={item.sort} index={index}>
                                             {(provided, snapshot) => (
                                                 <div
@@ -320,13 +188,14 @@ class Home extends Component {
                             )}
                         </Droppable>
                     </DragDropContext>
+                    <button className="btn btn-default btn-default__darken btn-block">Add new module</button>
                 </Column>
                 <Column title="Tasks">
                     <DragDropContext onDragEnd={this.onTaskDropEnd}>
                         <Droppable droppableId="droppable">
                             {(provided, snapshot) => (
                                 <div ref={provided.innerRef}>
-                                    {this.state.tasks.map((item, index) => (
+                                    {this.props.tasks.map((item, index) => (
                                         <Draggable key={item.sort} draggableId={item.sort} index={index}>
                                             {(provided, snapshot) => (
                                                 <div
@@ -339,6 +208,7 @@ class Home extends Component {
                                                         title={item.title}
                                                         key={index}
                                                         className={snapshot.isDragging ? 'card-isDragging' : ''}
+                                                        isDone={item.isDone}
                                                     />
                                                 </div>
                                             )}
@@ -349,15 +219,41 @@ class Home extends Component {
                             )}
                         </Droppable>
                     </DragDropContext>
+                    <button className="btn btn-default btn-default__darken btn-block">Add new task</button>
                 </Column>
                 <Column title="Task">
-                    <Card title={this.state.task.title}>
-                        <Task desc={this.state.task.desc}/>
-                    </Card>
+                    {task}
                 </Column>
             </div>
         )
     }
 }
 
-export default Home;
+function mapDispatchToProps(dispatch) {
+    return {
+        setTasksFunction: tasks => {
+            dispatch(setTasksAction(tasks))
+        },
+        setModulesFunction: modules => {
+            dispatch(setModulesAction(modules))
+        },
+        setStoriesFunction: stories => {
+            dispatch(seStoriesAction(stories))
+        },
+        setProjectsFunction: projects => {
+            dispatch(seProjectsAction(projects))
+        }
+    }
+}
+
+function mapStateToProps(state) {
+    return {
+        task: state.taskStore.task,
+        tasks: state.tasksStore.tasks,
+        modules: state.modulesStore.modules,
+        stories: state.storiesStore.stories,
+        projects: state.projectsStore.projects,
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

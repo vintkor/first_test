@@ -1,0 +1,138 @@
+// ========================= Variables ========================= //
+$main-color: #1a4661;
+$black-color: #000;
+$white-color: #fff;
+$accent-color: #fbfc56;
+$success-color: #12c35c;
+
+// ========================= Main styles ========================= //
+
+* {
+  font-family: 'Ubuntu', sans-serif;
+}
+
+.btn {
+  border: none;
+  padding: 5px 15px;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: .1s ease-in-out;
+  margin-right: 5px;
+  &-default {
+    background: rgba($main-color, .2);
+    color: rgba($main-color, .7);
+    &:hover {
+      background: rgba($main-color, .3);
+      color: rgba($main-color, .9);
+    }
+    &__darken {
+      background: rgba($main-color, .4);
+      color: rgba($white-color, .8);
+      font-weight: 300;
+      &:hover {
+        background: rgba($main-color, .6);
+        color: rgba($white-color, 1);
+      }
+    }
+  }
+  &-success {
+    background: rgba($success-color, 1);
+    color: rgba($white-color, .8);
+    &:hover {
+      background: darken($success-color, 3%);
+      color: rgba($white-color, 1);
+    }
+  }
+  &-block {
+    display: block;
+    text-align: center;
+    width: 100%;
+  }
+  &:active,
+  &:focus {
+    outline: none;
+  }
+}
+
+// ========================= Component Home ========================= //
+.home-wrapper {
+  width: 100vw;
+  display: flex;
+  background-image: url("https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/D8qa-2E/rainy-day-in-the-city-rain-drops-on-window-glass-depressive-mood-background_sfemcnxxs__F0000.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
+
+// ========================= Component Column ========================= //
+.column {
+  width: calc(100vw / 5);
+  height: 100vh;
+  &:last-child {
+    width: calc((100vw / 5) * 2);
+  }
+}
+.column-title {
+  background: rgba($main-color, .8);
+  text-align: center;
+  color: $white-color;
+  font-size: 16px;
+  text-transform: capitalize;
+  padding: 10px;
+  font-weight: bold;
+}
+.column-cards {
+  padding: 3px;
+  overflow: scroll;
+  height: calc(100vh - 60px);
+}
+
+// ========================= Component Card ========================= //
+.card {
+  padding: 5px 7px;
+  background: rgba($white-color, .9);
+  font-size: 14px;
+  margin-top: 5px;
+  margin-bottom: 7px;
+  transition: .1s ease-in-out;
+  border-radius: 2px;
+  box-shadow: 1px 1px 3px rgba($black-color, .1);
+  &:hover {
+    cursor: pointer;
+  }
+  &.card-isDragging {
+    background: $white-color;
+    background: rgba($accent-color, .8);
+    transform: rotate(2deg);
+    transition: .08s ease-in-out;
+    box-shadow: 5px 5px 10px rgba($black-color, .1);
+  }
+}
+.is-done {
+  background: rgba(lighten($success-color, 20%), .9);
+}
+.card-title {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  color: $main-color;
+  text-transform: capitalize;
+  font-weight: normal;
+}
+
+// ========================= Component Task ========================= //
+.task {
+  padding-top: 10px;
+}
+.task-desk {
+  border-top: 1px solid rgba($main-color, .1);
+  padding-top: 10px;
+  padding-bottom: 10px;
+  color: $main-color;
+  cursor: auto;
+}
+.task-footer {
+  padding-top: 10px;
+  padding-bottom: 5px;
+}
+
